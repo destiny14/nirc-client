@@ -5,6 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
+var debug = require('debug')('webirc');
+var http = require('http');
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+var ircclient = require('./ircclient');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -22,6 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+ircclient.run(io);
 
 // app.io.route('hello', function(req){
 //     console.log("test");
@@ -61,5 +68,11 @@ app.use(function(err, req, res, next) {
     });
 });
 
+app.set('port', process.env.PORT || 3000);
 
-module.exports = app;
+server.listen(app.get('port'));
+console.log("server listening on port " + app.get('port'));
+
+
+
+//module.exports = app;

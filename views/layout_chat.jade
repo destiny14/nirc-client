@@ -10,18 +10,18 @@ html
     script(src='/socket.io/socket.io.js')
     script(type='text/javascript').
         $(function(){
-
-            io = io.connect();
-            io.emit('hello');
+            var socket = io();
             $('#btnSend').click(function() {
-                
+                socket.emit('chat message', $('#chatbox').val());
+                $('#chatbox').val('');
+                return false;
             });
-            io.on('setup', function(data) {
-                $('.mainheader').append("("+data.nickname+" on "+data.chan+")");
-            });
-            io.on('talk', function(data) {
-                $('.dl-horizontal').append("<dt><p>"+data.frm+"</p></dt><dd><p>"+data.message+"</p></dd>");
-            });
+            //io.on('setup', function(data) {
+            //    $('.mainheader').append("("+data.nickname+" on "+data.chan+")");
+            //});
+            //io.on('talk', function(data) {
+            //    $('.dl-horizontal').append("<dt><p>"+data.frm+"</p></dt><dd><p>"+data.message+"</p></dd>");
+            //});
         });
   body
     block content
