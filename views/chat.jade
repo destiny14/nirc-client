@@ -1,0 +1,23 @@
+extends layout_chat
+
+block content
+	div.navbar.navbar-inverse.navbar-fixed-top
+		div.container
+			div.navbar-header
+				a(class='navbar-brand', href='#') IRC Client
+			div.collapse.navbar-collapse
+				ul(class = 'nav navbar-nav')
+					li(class='active'): a(href='#') Home
+					li: a(href='#') About
+					li: a(href='#') Contact
+	div.container
+		h1.mainheader Chat...
+		div.chatdiv
+			dl.dl-horizontal
+	#footer
+		div.container
+			div.row
+				div.col-md-10
+					input(class='form-control', type='text', name='chatbox', placeholder='type your message...', autofocus)
+				div.col-md-2
+					button(id='btnSend', class='btn btn-block', type='submit') Enter

@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/bootstrap/css/chat.css')
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
+    script(src='/socket.io/socket.io.js')
+    script(type='text/javascript').
+        $(function(){
+
+            io = io.connect();
+            io.emit('hello');
+            $('#btnSend').click(function() {
+                
+            });
+            io.on('setup', function(data) {
+                $('.mainheader').append("("+data.nickname+" on "+data.chan+")");
+            });
+            io.on('talk', function(data) {
+                $('.dl-horizontal').append("<dt><p>"+data.frm+"</p></dt><dd><p>"+data.message+"</p></dd>");
+            });
+        });
+  body
+    block content
