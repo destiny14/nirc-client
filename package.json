@@ -1,0 +1,9 @@
+{
+	"name": "nirc-client",
+	"description": "a node.js based webclient for irc",
+	"version": "0.0.1",
+	"private": "true",
+	"dependencies": {
+		"express": "4.4.4"
+	}
+}
