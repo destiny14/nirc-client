@@ -11,7 +11,7 @@ block content
 					li: a(href='#') About
 					li: a(href='#') Contact
 	div.container
-		form(class='form-signin', role='form', method='post')
+		form(class='form-signin', role='form', method='get', action='/chat')
 			h2.form-signin-heading Einloggen
 			input(name='Nickname', type='nickname', class='form-control', placeholder='Nickname', required, autofocus)
 			input(name='Server', type='server', class='form-control', placeholder='Server', required)

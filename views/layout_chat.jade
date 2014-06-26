@@ -9,18 +9,41 @@ html
     script(src='/bootstrap/js/bootstrap.min.js')
     script(src='/socket.io/socket.io.js')
     script(type='text/javascript').
+        function gup( name )
+        {
+            name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+            var regexS = "[\\?&]"+name+"=([^&#]*)";
+            var regex = new RegExp( regexS );
+            var results = regex.exec( window.location.href );
+            if( results == null )
+                return "";
+            else
+                return results[1];
+        }
+
         $(function(){
             var socket = io();
+            socket.emit('client connect', {
+                nickname: gup('Nickname'),
+                server: gup('Server'),
+                channel: gup('Channel').replace('%23', '#')
+                });
+
             $('#btnSend').click(function() {
                 socket.emit('chat message', $('#chatbox').val());
                 $('#chatbox').val('');
                 return false;
             });
+
+            $('.mainheader').append("(" + gup('Nickname') + ")");
+            socket.on('message recieved', function(data){
+                $('.dl-horizontal').append("<dt><p>"+data.frm+"</p></dt><dd><p>"+data.msg+"</p></dd>");
+            });
             //io.on('setup', function(data) {
             //    $('.mainheader').append("("+data.nickname+" on "+data.chan+")");
             //});
             //io.on('talk', function(data) {
-            //    $('.dl-horizontal').append("<dt><p>"+data.frm+"</p></dt><dd><p>"+data.message+"</p></dd>");
+            //    
             //});
         });
   body
