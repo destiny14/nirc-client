@@ -35,9 +35,26 @@ html
                 return false;
             });
 
-            $('.mainheader').append("(" + gup('Nickname') + ")");
+            $('.mainheader').append("(" + gup('Nickname') + " on " + gup('Channel').replace('%23', '#') + ")");
+
             socket.on('message recieved', function(data){
-                $('.dl-horizontal').append("<dt><p>"+data.frm+"</p></dt><dd><p>"+data.msg+"</p></dd>");
+                $('.table-striped').append("<tr><td class='nicksection'>"+data.frm+":</td><td>"+data.msg+"</td></tr>");
+            });
+
+            socket.on('info recieved', function(data){
+                $('.table-striped').append("<tr class='info'><td class='nicksection'>"+data.frm+":</td><td>"+data.msg+"</td></tr>");
+            });
+
+            socket.on('error recieved', function(data){
+                $('.table-striped').append("<tr class='danger'><td class='nicksection'>"+data.frm+":</td><td>"+data.msg+"</td></tr>");
+            });
+
+            socket.on('join recieved', function(data){
+                $('.table-striped').append("<tr class='success'><td class='nicksection'></td><td>user <strong>"+data.nick+"</strong> has joined</td></tr>");
+            });
+
+            socket.on('quit recieved', function(data){
+                $('.table-striped').append("<tr class='warning'><td class='nicksection'></td><td>user <strong>"+data.nick+"</strong> has quit (" + data.rs +")</td></tr>");
             });
             //io.on('setup', function(data) {
             //    $('.mainheader').append("("+data.nickname+" on "+data.chan+")");

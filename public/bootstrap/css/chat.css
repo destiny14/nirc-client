@@ -20,3 +20,22 @@ body {
   height: 60px;
   background-color: #222;
 }
+
+.table-striped th, .table-striped tr {
+  border-top: 0;
+}
+
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+  border-top: none;
+  height: 20px;
+}
+
+.nicksection {
+  font-weight: bold;
+  text-align: right;
+}

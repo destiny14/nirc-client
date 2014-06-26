@@ -18,22 +18,36 @@ function run(io) {
 	    	});
 
 	    	client.addListener('motd', function(motd){
-	    		socket.emit('message recieved', {
+	    		socket.emit('info recieved', {
 	    			frm: 'motd',
 	    			msg: motd
 	    		});
 	    	});
 
+	    	client.addListener('join' + data.channel, function(nickname, message){
+	    		socket.emit('join recieved', {
+	    			nick: nickname
+	    		});
+	    	});
+
+	    	client.addListener('quit', function(nickname, reason, channels, message){
+	    		socket.emit('quit recieved', {
+	    			nick: nickname,
+	    			rs: reason
+	    		});
+	    	});
+
 	    	client.addListener('topic', function(channel, topic, nick, message){
-	    		socket.emit('message recieved', {
+	    		socket.emit('info recieved', {
 	    			frm: 'topic',
 	    			msg: topic + " set by " + nick
 	    		});
 	    	});
+
 	    	client.addListener('error', function(message) {
-	    		socket.emit('message recieved', {
+	    		socket.emit('error recieved', {
 	    			frm: "ERROR",
-	    			msg: message.args[1]
+	    			msg: message.command
 	    		})
 				console.log('error: ', message);
 			});
