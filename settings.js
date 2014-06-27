@@ -23,6 +23,13 @@
 
 // BEGIN CONFIG VARIABLES
 
+// WEB INTERFACE CONFIG
+
+// the port the webclient will run on
+const webPort = 3000;
+
+// IRC CLIENT CONFIG
+
 // the client's user name, will be used as the hostname
 const userName = 'nirc-client';
 
@@ -43,6 +50,7 @@ const messageSplit = 512;
 
 // END CONFIG VARIABLES
 
+exports.webPort = webPort;
 exports.userName = userName;
 exports.realName = realName;
 exports.port = port;

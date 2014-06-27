@@ -34,6 +34,7 @@ var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 var ircclient = require('./ircclient');
+var settings = require('./settings');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -86,7 +87,7 @@ app.use(function(err, req, res, next) {
     });
 });
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', settings.webPort);
 
 server.listen(app.get('port'));
 console.log("server listening on port " + app.get('port'));
