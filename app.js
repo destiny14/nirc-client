@@ -1,3 +1,9 @@
+//////////////////////////////////////////
+//  app.js (2014 Marco Stambor)         //
+//  entry point of the application,     //
+//  mainly express stuff in here        //
+//////////////////////////////////////////
+
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');

@@ -40,6 +40,14 @@ html
                 return false;
             });
 
+            $('#chatbox').keyup(function(e){
+                if (e.keyCode == 13) {
+                    socket.emit('chat message', $('#chatbox').val());
+                    $('#chatbox').val(''); // clear the textbox
+                    return false;
+                }
+            });
+
             // append nick and channel to the heading...
             $('.mainheader').append("(" + gup('Nickname') + " on " + gup('Channel').replace('%23', '#') + ")");
 

@@ -1,4 +1,11 @@
+//////////////////////////////////////////
+//	ircclient.js (2014 Marco Stambor)	//
+//	handles the irc client logic and 	//
+//	message routing.					//
+//////////////////////////////////////////
+
 var irc = require('irc');
+var settings = require('./settings');
 
 // starts the irc client logic. Waits for a new client, 
 // then initializes the irc client with the given 
@@ -12,7 +19,13 @@ function run(io) {
 	    // wait for the client connect message from the socket.io client
 	    socket.on('client connect', function(data){
 	    	client = new irc.Client(data.server, data.nickname, { // start and connect the irc client
+		    	userName: settings.userName,
+		    	realName: settings.realName,
+		    	port: settings.port,
+		    	autoRejoin: settings.autoRejoin,
 		    	channels: [data.channel],
+		    	stripColors: settings.stripColors,
+		    	messageSplit: settings.messageSplit,
 			});
 	    	channel = data.channel;
 
