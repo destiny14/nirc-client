@@ -3,7 +3,7 @@ nirc-client
 
 Simple irc web client using node.js, express, irc for node.js and socket.io.
 
-# installation
+## installation
 1. Install node.js. This app was created on version 0.10.28. http://nodejs.org/
 2. Clone the repository or download the zip file
 3. Open a command window in the folder you cloned the repository in and run "npm install"
@@ -11,7 +11,7 @@ Simple irc web client using node.js, express, irc for node.js and socket.io.
 
 If you want to apply further configuration open the file "settings.js" and take a look.
 
-# TO-DO
+## TO-DO
 
 * userlist
 * theming support
