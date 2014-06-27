@@ -28,6 +28,8 @@
 // the port the webclient will run on
 const webPort = 3000;
 
+const theme = 'bootstrap';
+
 // IRC CLIENT CONFIG
 
 // the client's user name, will be used as the hostname
@@ -51,6 +53,7 @@ const messageSplit = 512;
 // END CONFIG VARIABLES
 
 exports.webPort = webPort;
+exports.theme = theme;
 exports.userName = userName;
 exports.realName = realName;
 exports.port = port;
