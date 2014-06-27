@@ -9,6 +9,7 @@ html
     script(src='/bootstrap/js/bootstrap.min.js')
     script(src='/socket.io/socket.io.js')
     script(type='text/javascript').
+        // function to extract get parameters by name
         function gup( name )
         {
             name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
@@ -22,46 +23,61 @@ html
         }
 
         $(function(){
+            // connect a new socket.io client
             var socket = io();
+
+            // emit the client connect message to connect the irc client to the selected server and channel
             socket.emit('client connect', {
                 nickname: gup('Nickname'),
                 server: gup('Server'),
                 channel: gup('Channel').replace('%23', '#')
                 });
 
+            // on button click, send message
             $('#btnSend').click(function() {
                 socket.emit('chat message', $('#chatbox').val());
-                $('#chatbox').val('');
+                $('#chatbox').val(''); // clear the textbox
                 return false;
             });
 
+            // append nick and channel to the heading...
             $('.mainheader').append("(" + gup('Nickname') + " on " + gup('Channel').replace('%23', '#') + ")");
 
+            // normal message recieved handler
             socket.on('message recieved', function(data){
                 $('.table-striped').append("<tr><td class='nicksection'>"+data.frm+":</td><td>"+data.msg+"</td></tr>");
             });
 
+            // info message recieved handler
             socket.on('info recieved', function(data){
                 $('.table-striped').append("<tr class='info'><td class='nicksection'>"+data.frm+":</td><td>"+data.msg+"</td></tr>");
             });
 
+            // error message recieved handler
             socket.on('error recieved', function(data){
                 $('.table-striped').append("<tr class='danger'><td class='nicksection'>"+data.frm+":</td><td>"+data.msg+"</td></tr>");
             });
 
+            // join message recieved handler
             socket.on('join recieved', function(data){
                 $('.table-striped').append("<tr class='success'><td class='nicksection'></td><td>user <strong>"+data.nick+"</strong> has joined</td></tr>");
             });
 
+            // quit message recieved handler
             socket.on('quit recieved', function(data){
                 $('.table-striped').append("<tr class='warning'><td class='nicksection'></td><td>user <strong>"+data.nick+"</strong> has quit (" + data.rs +")</td></tr>");
             });
-            //io.on('setup', function(data) {
-            //    $('.mainheader').append("("+data.nickname+" on "+data.chan+")");
-            //});
-            //io.on('talk', function(data) {
-            //    
-            //});
+
+            // user list recieved handler
+            socket.on('nicklist recieved', function(data){
+                for(var attr in data.nicknames) {
+                    if (attr === gup('Nickname')) {
+                        $('.userlist').append("<li class='list-group-item list-group-item-info'>" + attr + "</li>");
+                    } else {
+                        $('.userlist').append("<li class='list-group-item'>" + attr + "</li>");
+                    }
+                }
+            });
         });
   body
     block content

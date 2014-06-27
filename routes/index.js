@@ -11,8 +11,4 @@ router.get('/chat', function(req, res) {
 	res.render('chat', { title: 'Express' });
 });
 
-router.post('/', function(req, res) {
-	res.redirect('/chat');
-});
-
 module.exports = router;
